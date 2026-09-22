@@ -1,0 +1,99 @@
+/* ==========================================================
+   PRODESK — SHARED RESPONSIVE STYLES
+   Link this ONE file in app.blade.php and guest.blade.php
+   <head>, and it applies to every page automatically.
+   ========================================================== */
+
+/* ---------- TABLET (≤ 992px) ---------- */
+@media (max-width: 992px) {
+    .pd-hero{ padding:26px 24px; }
+    .pd-hero h1{ font-size:24px; }
+    .pd-cover-img, .pd-cover-placeholder{ height:300px; }
+}
+
+/* ---------- MOBILE (≤ 768px) ---------- */
+@media (max-width: 768px) {
+
+    /* Navbar: hide tagline + username, keep logo + icons compact */
+    .pd-navbar{ padding:10px 16px; }
+    .pd-brand-text small{ display:none; }
+    .pd-username{ display:none !important; }
+
+    /* Page header bar (Dashboard / Properties / etc titles) */
+    header .btn-pd-primary,
+    header .btn-pd-outline{
+        width:100%;
+        text-align:center;
+    }
+    header > div.container-fluid{
+        padding-top:16px !important;
+        padding-bottom:16px !important;
+    }
+
+    /* Hero banner */
+    .pd-hero{ padding:22px 18px; border-radius:16px; }
+    .pd-hero h1{ font-size:20px; }
+    .pd-hero p{ font-size:13.5px; }
+    .pd-hero-feat{ font-size:12px; }
+    .pd-hero-feat .ic{ width:22px; height:22px; font-size:11px; }
+
+    /* Stat cards: 2 per row already via Bootstrap col-6, just tighten padding */
+    .pd-card.p-4{ padding:16px !important; }
+    .pd-stat-icon{ width:38px; height:38px; font-size:16px; }
+
+    /* Recent Properties rows */
+    .pd-prop-row{ flex-wrap:wrap; }
+    .pd-prop-img, .pd-prop-placeholder{ width:64px; height:52px; }
+
+    /* Quick actions panel */
+    .pd-quick-panel{ padding:18px; }
+
+    /* Bottom CTA bar */
+    .pd-cta-bar{ flex-direction:column; align-items:flex-start; padding:20px; }
+    .pd-cta-bar .btn-pd-outline{ width:100%; text-align:center; }
+
+    /* Properties toolbar: search + filter tabs stack */
+    .pd-toolbar{ flex-direction:column; align-items:stretch !important; }
+    .pd-toolbar > div{ max-width:100% !important; }
+    #pdFilterTabs{ overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px; }
+    .pd-tab{ white-space:nowrap; }
+
+    /* Property cards */
+    .pd-prop-media, .pd-prop-media img, .pd-prop-media video{ height:180px; }
+
+    /* Property details (show) page */
+    .pd-cover-img, .pd-cover-placeholder{ height:220px; border-radius:14px; }
+    .pd-thumb{ width:80px; height:60px; }
+    .pd-price{ font-size:20px; }
+
+    /* Forms (Add/Edit property) */
+    .pd-section-num{ width:26px; height:26px; font-size:12px; }
+    .pd-section-title{ font-size:14.5px; }
+    .container, .container-fluid{ padding-left:16px !important; padding-right:16px !important; }
+
+    /* Form action buttons stack full width */
+    .d-flex.justify-content-end.gap-2.pb-2{
+        flex-direction:column-reverse;
+    }
+    .d-flex.justify-content-end.gap-2.pb-2 > *{
+        width:100%;
+        text-align:center;
+    }
+
+    /* Header action button groups (Edit/Back, View/Back) stack full width */
+    header .d-flex.gap-2{
+        width:100%;
+        flex-direction:column;
+    }
+    header .d-flex.gap-2 > a{
+        text-align:center;
+    }
+}
+
+/* ---------- SMALL MOBILE (≤ 420px) ---------- */
+@media (max-width: 420px) {
+    .pd-hero h1{ font-size:18px; }
+    .pd-price{ font-size:18px; }
+    .pd-brand-icon{ width:34px; height:34px; font-size:16px; }
+    .pd-avatar{ width:32px; height:32px; font-size:11px; }
+}
