@@ -1,99 +1,880 @@
 /* ==========================================================
    PRODESK — SHARED RESPONSIVE STYLES
-   Link this ONE file in app.blade.php and guest.blade.php
-   <head>, and it applies to every page automatically.
+   Global responsive layer
+   Works with:
+   Navbar
+   Dashboard
+   Properties Index
+   Property Show
+   Property Create
+   Property Edit
+   Profile
+   Auth pages
    ========================================================== */
 
-/* ---------- TABLET (≤ 992px) ---------- */
-@media (max-width: 992px) {
-    .pd-hero{ padding:26px 24px; }
-    .pd-hero h1{ font-size:24px; }
-    .pd-cover-img, .pd-cover-placeholder{ height:300px; }
+
+/* ==========================================================
+   GLOBAL RESPONSIVE HELPERS
+   ========================================================== */
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
-/* ---------- MOBILE (≤ 768px) ---------- */
+img,
+video {
+    max-width: 100%;
+}
+
+.container,
+.container-fluid {
+    width: 100%;
+}
+
+
+/* ==========================================================
+   LARGE TABLET / SMALL DESKTOP
+   ≤ 1200px
+   ========================================================== */
+
+@media (max-width: 1200px) {
+
+    .pd-navbar {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .pd-hero {
+        padding: 28px 26px;
+    }
+
+    .pd-hero h1 {
+        font-size: 26px;
+    }
+
+    .pd-cover-img,
+    .pd-cover-placeholder {
+        height: 320px;
+    }
+
+    .pd-prop-media,
+    .pd-prop-media img,
+    .pd-prop-media video {
+        height: 200px;
+    }
+}
+
+
+/* ==========================================================
+   TABLET
+   ≤ 992px
+   ========================================================== */
+
+@media (max-width: 992px) {
+
+    /* -------------------------
+       Navbar
+    ------------------------- */
+
+    .pd-navbar {
+        min-height: 68px;
+        padding: 10px 22px;
+    }
+
+    .pd-brand-icon {
+        width: 41px;
+        height: 41px;
+    }
+
+    .pd-brand-text b {
+        font-size: 18px;
+    }
+
+
+    /* -------------------------
+       Main containers
+    ------------------------- */
+
+    .container,
+    .container-fluid {
+        padding-left: 22px !important;
+        padding-right: 22px !important;
+    }
+
+
+    /* -------------------------
+       Hero
+    ------------------------- */
+
+    .pd-hero {
+        padding: 26px 24px;
+        border-radius: 18px;
+    }
+
+    .pd-hero h1 {
+        font-size: 24px;
+    }
+
+    .pd-hero p {
+        font-size: 14px;
+    }
+
+
+    /* -------------------------
+       Property Show
+    ------------------------- */
+
+    .pd-cover-img,
+    .pd-cover-placeholder {
+        height: 300px;
+    }
+
+
+    /* -------------------------
+       Property cards
+    ------------------------- */
+
+    .pd-prop-media,
+    .pd-prop-media img,
+    .pd-prop-media video {
+        height: 190px;
+    }
+
+
+    /* -------------------------
+       Dashboard grids
+    ------------------------- */
+
+    .pd-dashboard-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+
+    /* -------------------------
+       Form sections
+    ------------------------- */
+
+    .pd-form-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* ==========================================================
+   MOBILE
+   ≤ 768px
+   ========================================================== */
+
 @media (max-width: 768px) {
 
-    /* Navbar: hide tagline + username, keep logo + icons compact */
-    .pd-navbar{ padding:10px 16px; }
-    .pd-brand-text small{ display:none; }
-    .pd-username{ display:none !important; }
+    /* ======================================================
+       GLOBAL
+    ====================================================== */
 
-    /* Page header bar (Dashboard / Properties / etc titles) */
+    .container,
+    .container-fluid {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+
+    .row {
+        --bs-gutter-x: 1rem;
+    }
+
+
+    /* ======================================================
+       NAVBAR
+    ====================================================== */
+
+    .pd-navbar {
+        min-height: 64px;
+        padding: 10px 16px;
+    }
+
+    .pd-navbar::after {
+        height: 2px;
+    }
+
+    .pd-brand {
+        gap: 9px;
+    }
+
+    .pd-brand-icon {
+        width: 39px;
+        height: 39px;
+        border-radius: 11px;
+        font-size: 18px;
+    }
+
+    .pd-brand-text b {
+        font-size: 17px;
+    }
+
+    .pd-brand-text small {
+        display: none !important;
+    }
+
+    .pd-username {
+        display: none !important;
+    }
+
+    .pd-user-info {
+        display: none !important;
+    }
+
+    .pd-avatar-btn {
+        padding: 4px;
+        border-radius: 50%;
+    }
+
+    .pd-avatar {
+        width: 36px;
+        height: 36px;
+    }
+
+    .pd-caret {
+        display: none;
+    }
+
+    .pd-nav-right {
+        gap: 8px;
+    }
+
+
+    /* ======================================================
+       PAGE HEADER
+    ====================================================== */
+
     header .btn-pd-primary,
-    header .btn-pd-outline{
-        width:100%;
-        text-align:center;
-    }
-    header > div.container-fluid{
-        padding-top:16px !important;
-        padding-bottom:16px !important;
+    header .btn-pd-outline {
+        width: 100%;
+        text-align: center;
     }
 
-    /* Hero banner */
-    .pd-hero{ padding:22px 18px; border-radius:16px; }
-    .pd-hero h1{ font-size:20px; }
-    .pd-hero p{ font-size:13.5px; }
-    .pd-hero-feat{ font-size:12px; }
-    .pd-hero-feat .ic{ width:22px; height:22px; font-size:11px; }
-
-    /* Stat cards: 2 per row already via Bootstrap col-6, just tighten padding */
-    .pd-card.p-4{ padding:16px !important; }
-    .pd-stat-icon{ width:38px; height:38px; font-size:16px; }
-
-    /* Recent Properties rows */
-    .pd-prop-row{ flex-wrap:wrap; }
-    .pd-prop-img, .pd-prop-placeholder{ width:64px; height:52px; }
-
-    /* Quick actions panel */
-    .pd-quick-panel{ padding:18px; }
-
-    /* Bottom CTA bar */
-    .pd-cta-bar{ flex-direction:column; align-items:flex-start; padding:20px; }
-    .pd-cta-bar .btn-pd-outline{ width:100%; text-align:center; }
-
-    /* Properties toolbar: search + filter tabs stack */
-    .pd-toolbar{ flex-direction:column; align-items:stretch !important; }
-    .pd-toolbar > div{ max-width:100% !important; }
-    #pdFilterTabs{ overflow-x:auto; flex-wrap:nowrap; padding-bottom:4px; }
-    .pd-tab{ white-space:nowrap; }
-
-    /* Property cards */
-    .pd-prop-media, .pd-prop-media img, .pd-prop-media video{ height:180px; }
-
-    /* Property details (show) page */
-    .pd-cover-img, .pd-cover-placeholder{ height:220px; border-radius:14px; }
-    .pd-thumb{ width:80px; height:60px; }
-    .pd-price{ font-size:20px; }
-
-    /* Forms (Add/Edit property) */
-    .pd-section-num{ width:26px; height:26px; font-size:12px; }
-    .pd-section-title{ font-size:14.5px; }
-    .container, .container-fluid{ padding-left:16px !important; padding-right:16px !important; }
-
-    /* Form action buttons stack full width */
-    .d-flex.justify-content-end.gap-2.pb-2{
-        flex-direction:column-reverse;
-    }
-    .d-flex.justify-content-end.gap-2.pb-2 > *{
-        width:100%;
-        text-align:center;
+    header > div.container-fluid {
+        padding-top: 16px !important;
+        padding-bottom: 16px !important;
     }
 
-    /* Header action button groups (Edit/Back, View/Back) stack full width */
-    header .d-flex.gap-2{
-        width:100%;
-        flex-direction:column;
+    header .d-flex.gap-2 {
+        width: 100%;
+        flex-direction: column;
+        gap: 8px !important;
     }
-    header .d-flex.gap-2 > a{
-        text-align:center;
+
+    header .d-flex.gap-2 > a,
+    header .d-flex.gap-2 > button {
+        width: 100%;
+        text-align: center;
     }
+
+
+    /* ======================================================
+       HERO
+    ====================================================== */
+
+    .pd-hero {
+        padding: 22px 18px;
+        border-radius: 16px;
+    }
+
+    .pd-hero h1 {
+        font-size: 20px;
+        line-height: 1.25;
+    }
+
+    .pd-hero p {
+        font-size: 13.5px;
+        line-height: 1.6;
+    }
+
+    .pd-hero-feat {
+        font-size: 12px;
+    }
+
+    .pd-hero-feat .ic {
+        width: 22px;
+        height: 22px;
+        font-size: 11px;
+    }
+
+
+    /* ======================================================
+       DASHBOARD STAT CARDS
+    ====================================================== */
+
+    .pd-card.p-4 {
+        padding: 16px !important;
+    }
+
+    .pd-stat-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 16px;
+    }
+
+    .pd-stat-number {
+        font-size: 22px;
+    }
+
+
+    /* ======================================================
+       DASHBOARD RECENT PROPERTIES
+    ====================================================== */
+
+    .pd-prop-row {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .pd-prop-img,
+    .pd-prop-placeholder {
+        width: 64px;
+        height: 52px;
+        flex-shrink: 0;
+    }
+
+    .pd-prop-row > div {
+        min-width: 0;
+    }
+
+
+    /* ======================================================
+       QUICK ACTIONS
+    ====================================================== */
+
+    .pd-quick-panel {
+        padding: 18px;
+    }
+
+    .pd-quick-action {
+        min-height: 58px;
+    }
+
+
+    /* ======================================================
+       CTA
+    ====================================================== */
+
+    .pd-cta-bar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 16px;
+    }
+
+    .pd-cta-bar .btn-pd-outline,
+    .pd-cta-bar a {
+        width: 100%;
+        text-align: center;
+    }
+
+
+    /* ======================================================
+       PROPERTY TOOLBAR
+    ====================================================== */
+
+    .pd-toolbar {
+        flex-direction: column;
+        align-items: stretch !important;
+        gap: 12px;
+    }
+
+    .pd-toolbar > div {
+        max-width: 100% !important;
+        width: 100%;
+    }
+
+    #pdFilterTabs {
+        width: 100%;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        padding-bottom: 5px;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    #pdFilterTabs::-webkit-scrollbar {
+        display: none;
+    }
+
+    .pd-tab {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+
+    /* ======================================================
+       PROPERTY CARDS
+    ====================================================== */
+
+    .pd-prop-media,
+    .pd-prop-media img,
+    .pd-prop-media video {
+        height: 180px;
+    }
+
+    .pd-prop-card {
+        width: 100%;
+    }
+
+
+    /* ======================================================
+       PROPERTY SHOW / DETAILS
+    ====================================================== */
+
+    .pd-cover-img,
+    .pd-cover-placeholder {
+        height: 220px;
+        border-radius: 14px;
+    }
+
+    .pd-thumb {
+        width: 80px;
+        height: 60px;
+        flex-shrink: 0;
+    }
+
+    .pd-price {
+        font-size: 20px;
+    }
+
+
+    /* ======================================================
+       PROPERTY DETAIL INFO
+    ====================================================== */
+
+    .pd-info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pd-spec-box {
+        min-width: 0;
+    }
+
+
+    /* ======================================================
+       FORMS — CREATE / EDIT
+    ====================================================== */
+
+    .pd-section-num {
+        width: 26px;
+        height: 26px;
+        font-size: 12px;
+        flex-shrink: 0;
+    }
+
+    .pd-section-title {
+        font-size: 14.5px;
+    }
+
+    .pd-form-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .pd-form-row {
+        flex-direction: column;
+    }
+
+
+    /* ======================================================
+       FORM ACTION BUTTONS
+    ====================================================== */
+
+    .d-flex.justify-content-end.gap-2.pb-2 {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .d-flex.justify-content-end.gap-2.pb-2 > * {
+        width: 100%;
+        text-align: center;
+    }
+
+
+    /* ======================================================
+       MEDIA UPLOAD
+    ====================================================== */
+
+    .pd-upload-zone {
+        min-height: 170px;
+        padding: 22px 16px;
+    }
+
+    .pd-upload-zone h5 {
+        font-size: 15px;
+    }
+
+    .pd-upload-zone p {
+        font-size: 12px;
+    }
+
+
+    /* ======================================================
+       MEDIA GRID
+    ====================================================== */
+
+    .pd-media-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .pd-media-card {
+        min-width: 0;
+    }
+
+
+    /* ======================================================
+       STICKY SAVE BAR
+    ====================================================== */
+
+    .pd-save-bar {
+        position: sticky;
+        bottom: 10px;
+        z-index: 100;
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .pd-save-bar .btn {
+        width: 100%;
+    }
+
+
+    /* ======================================================
+       TABLES / LISTS
+    ====================================================== */
+
+    .table-responsive {
+        border-radius: 12px;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    /* ======================================================
+       PROFILE
+    ====================================================== */
+
+    .pd-profile-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .pd-profile-card {
+        width: 100%;
+    }
+
+
+    /* ======================================================
+       AUTH PAGES
+    ====================================================== */
+
+    .pd-auth-wrapper {
+        min-height: 100vh;
+    }
+
+    .pd-auth-card {
+        width: 100%;
+        max-width: 100%;
+        border-radius: 18px;
+    }
+
+    .pd-auth-side {
+        display: none !important;
+    }
+
+    .pd-auth-form {
+        padding: 28px 20px !important;
+    }
+
 }
 
-/* ---------- SMALL MOBILE (≤ 420px) ---------- */
+
+/* ==========================================================
+   SMALL MOBILE
+   ≤ 576px
+   ========================================================== */
+
+@media (max-width: 576px) {
+
+    .container,
+    .container-fluid {
+        padding-left: 14px !important;
+        padding-right: 14px !important;
+    }
+
+
+    /* -------------------------
+       Navbar
+    ------------------------- */
+
+    .pd-navbar {
+        padding: 9px 14px;
+    }
+
+    .pd-brand-icon {
+        width: 37px;
+        height: 37px;
+        font-size: 17px;
+    }
+
+    .pd-brand-text b {
+        font-size: 16px;
+    }
+
+
+    /* -------------------------
+       Hero
+    ------------------------- */
+
+    .pd-hero {
+        padding: 20px 16px;
+    }
+
+    .pd-hero h1 {
+        font-size: 19px;
+    }
+
+    .pd-hero p {
+        font-size: 13px;
+    }
+
+
+    /* -------------------------
+       Stats
+    ------------------------- */
+
+    .pd-stat-number {
+        font-size: 20px;
+    }
+
+    .pd-stat-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+
+    /* -------------------------
+       Property cards
+    ------------------------- */
+
+    .pd-prop-media,
+    .pd-prop-media img,
+    .pd-prop-media video {
+        height: 175px;
+    }
+
+
+    /* -------------------------
+       Show page
+    ------------------------- */
+
+    .pd-cover-img,
+    .pd-cover-placeholder {
+        height: 210px;
+    }
+
+    .pd-thumb {
+        width: 72px;
+        height: 55px;
+    }
+
+    .pd-price {
+        font-size: 19px;
+    }
+
+
+    /* -------------------------
+       Info grid
+    ------------------------- */
+
+    .pd-info-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+
+    /* -------------------------
+       Media
+    ------------------------- */
+
+    .pd-media-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* ==========================================================
+   EXTRA SMALL MOBILE
+   ≤ 420px
+   ========================================================== */
+
 @media (max-width: 420px) {
-    .pd-hero h1{ font-size:18px; }
-    .pd-price{ font-size:18px; }
-    .pd-brand-icon{ width:34px; height:34px; font-size:16px; }
-    .pd-avatar{ width:32px; height:32px; font-size:11px; }
+
+    /* -------------------------
+       Navbar
+    ------------------------- */
+
+    .pd-navbar {
+        padding: 8px 12px;
+    }
+
+    .pd-brand {
+        gap: 8px;
+    }
+
+    .pd-brand-icon {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        font-size: 16px;
+    }
+
+    .pd-brand-text b {
+        font-size: 15px;
+    }
+
+    .pd-avatar {
+        width: 32px;
+        height: 32px;
+        font-size: 11px;
+    }
+
+
+    /* -------------------------
+       Hero
+    ------------------------- */
+
+    .pd-hero h1 {
+        font-size: 18px;
+    }
+
+    .pd-hero {
+        padding: 18px 14px;
+    }
+
+
+    /* -------------------------
+       Property price
+    ------------------------- */
+
+    .pd-price {
+        font-size: 18px;
+    }
+
+
+    /* -------------------------
+       Property show
+    ------------------------- */
+
+    .pd-cover-img,
+    .pd-cover-placeholder {
+        height: 190px;
+    }
+
+    .pd-thumb {
+        width: 64px;
+        height: 50px;
+    }
+
+
+    /* -------------------------
+       Stats
+    ------------------------- */
+
+    .pd-card.p-4 {
+        padding: 13px !important;
+    }
+
+    .pd-stat-number {
+        font-size: 18px;
+    }
+
+    .pd-stat-icon {
+        width: 33px;
+        height: 33px;
+        font-size: 14px;
+    }
+
+
+    /* -------------------------
+       Property cards
+    ------------------------- */
+
+    .pd-prop-media,
+    .pd-prop-media img,
+    .pd-prop-media video {
+        height: 160px;
+    }
+
+
+    /* -------------------------
+       Info grid
+    ------------------------- */
+
+    .pd-info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    /* -------------------------
+       Form buttons
+    ------------------------- */
+
+    .pd-btn,
+    .btn-pd-primary,
+    .btn-pd-outline {
+        width: 100%;
+    }
+
+
+    /* -------------------------
+       Upload
+    ------------------------- */
+
+    .pd-upload-zone {
+        min-height: 150px;
+        padding: 18px 12px;
+    }
+
+}
+
+
+/* ==========================================================
+   VERY SMALL DEVICES
+   ≤ 360px
+   ========================================================== */
+
+@media (max-width: 360px) {
+
+    .pd-navbar {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .pd-brand-text b {
+        font-size: 14px;
+    }
+
+    .pd-brand-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 15px;
+    }
+
+    .pd-avatar {
+        width: 30px;
+        height: 30px;
+        font-size: 10px;
+    }
+
+    .pd-hero h1 {
+        font-size: 17px;
+    }
+
+    .pd-price {
+        font-size: 17px;
+    }
+
 }
