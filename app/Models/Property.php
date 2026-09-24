@@ -12,19 +12,20 @@ class Property extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'user_id',
-        'title',
-        'property_type',
-        'purpose',
-        'price',
-        'area',
-        'bedrooms',
-        'bathrooms',
-        'address',
-        'description',
-        'status',
-    ];
+   protected $fillable = [
+    'user_id',
+    'title',
+    'slug',
+    'property_type',
+    'purpose',
+    'price',
+    'area',
+    'bedrooms',
+    'bathrooms',
+    'address',
+    'description',
+    'status',
+];
 
     public function user(): BelongsTo
     {

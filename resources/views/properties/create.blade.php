@@ -621,6 +621,35 @@
             display:none;
         }
 
+        .pd-media-limits {
+            display:flex;
+            justify-content:center;
+            gap:8px;
+            flex-wrap:wrap;
+            margin-top:10px;
+        }
+
+        .pd-limit-pill {
+            display:inline-flex;
+            align-items:center;
+            gap:5px;
+            background:#eef4f0;
+            color:var(--pd-green);
+            border-radius:30px;
+            padding:5px 11px;
+            font-size:9.5px;
+            font-weight:800;
+        }
+
+        .pd-limit-pill.video {
+            background:#fff1e4;
+            color:var(--pd-orange);
+        }
+
+        .pd-limit-pill span.pd-limit-count {
+            font-weight:850;
+        }
+
 
         /* =========================
            PREVIEW
@@ -693,6 +722,23 @@
             text-overflow:ellipsis;
         }
 
+        .pd-preview-badge {
+            position:absolute;
+            left:7px;
+            top:7px;
+            background:rgba(18,55,42,.88);
+            color:#fff;
+            padding:3px 7px;
+            border-radius:6px;
+            font-size:8px;
+            font-weight:800;
+            letter-spacing:.4px;
+        }
+
+        .pd-preview-badge.video {
+            background:rgba(229,138,49,.92);
+        }
+
         .pd-preview-remove {
             position:absolute;
             right:6px;
@@ -706,6 +752,22 @@
             font-size:12px;
             font-weight:800;
             cursor:pointer;
+        }
+
+        .pd-media-warning {
+            margin-top:10px;
+            background:#fff0ee;
+            border:1px solid #f2c5bf;
+            color:#8d3026;
+            border-radius:10px;
+            padding:9px 13px;
+            font-size:11px;
+            font-weight:650;
+            display:none;
+        }
+
+        .pd-media-warning.show {
+            display:block;
         }
 
 
@@ -1451,7 +1513,8 @@
                             </div>
 
                             <div class="pd-drop-sub">
-                                Drag & drop files here or click to browse
+                                Drag & drop files here or click to browse. You can add photos and videos
+                                separately — new selections are added to what you already picked.
                             </div>
 
 
@@ -1484,6 +1547,21 @@
                             </div>
 
 
+                            <div class="pd-media-limits">
+
+                                <span class="pd-limit-pill photo">
+                                    🖼️ Photos:
+                                    <span class="pd-limit-count" id="pdPhotoCount">0</span>/5
+                                </span>
+
+                                <span class="pd-limit-pill video">
+                                    🎬 Videos:
+                                    <span class="pd-limit-count" id="pdVideoCount">0</span>/3
+                                </span>
+
+                            </div>
+
+
                             <input
                                 type="file"
                                 name="media[]"
@@ -1493,6 +1571,12 @@
                             >
 
                         </label>
+
+
+                        <div
+                            class="pd-media-warning"
+                            id="pdMediaWarning"
+                        ></div>
 
 
                         {{-- PREVIEW --}}
@@ -1527,7 +1611,9 @@
 
 
                         <div class="pd-help mt-3">
-                            💡 You can upload multiple photos/videos. The first photo will be used as the cover photo.
+                            💡 You can upload up to 5 photos and 3 videos. Add them in as many separate selections
+                            as you like — each new pick adds on top of what's already selected. The first photo
+                            will be used as the cover photo.
                         </div>
 
                     </div>
@@ -1581,6 +1667,9 @@
 
         document.addEventListener('DOMContentLoaded', function () {
 
+            const MAX_PHOTOS = 5;
+            const MAX_VIDEOS = 3;
+
             const dropzone =
                 document.getElementById('pdDropzone');
 
@@ -1596,6 +1685,50 @@
             const previewCount =
                 document.getElementById('pdPreviewCount');
 
+            const photoCountEl =
+                document.getElementById('pdPhotoCount');
+
+            const videoCountEl =
+                document.getElementById('pdVideoCount');
+
+            const warningBox =
+                document.getElementById('pdMediaWarning');
+
+
+            /* This is the single source of truth for everything the
+               user has picked so far, across every dialog open / drop.
+               We never let the browser's native input.files silently
+               replace this — we always merge into it instead. */
+            let selectedFiles = [];
+
+
+            function isImage(file) {
+
+                return file.type.startsWith('image/');
+
+            }
+
+
+            function isVideo(file) {
+
+                return file.type.startsWith('video/');
+
+            }
+
+
+            function currentPhotoCount() {
+
+                return selectedFiles.filter(isImage).length;
+
+            }
+
+
+            function currentVideoCount() {
+
+                return selectedFiles.filter(isVideo).length;
+
+            }
+
 
             function formatSize(bytes) {
 
@@ -1610,14 +1743,160 @@
             }
 
 
-            function renderPreview(files) {
+            function showWarning(message) {
+
+                warningBox.textContent = message;
+
+                warningBox.classList.add('show');
+
+            }
+
+
+            function clearWarning() {
+
+                warningBox.textContent = '';
+
+                warningBox.classList.remove('show');
+
+            }
+
+
+            /* Rebuilds the real <input type="file"> so the form still
+               submits every file the user has selected, since we are
+               managing the actual list ourselves in `selectedFiles`. */
+            function syncInputFiles() {
+
+                const dataTransfer =
+                    new DataTransfer();
+
+                selectedFiles.forEach(function (file) {
+
+                    dataTransfer.items.add(file);
+
+                });
+
+                input.files =
+                    dataTransfer.files;
+
+            }
+
+
+            function updateCounts() {
+
+                photoCountEl.textContent =
+                    currentPhotoCount();
+
+                videoCountEl.textContent =
+                    currentVideoCount();
+
+            }
+
+
+            /* Adds new files on top of whatever is already selected,
+               skipping anything that would push a type over its limit
+               (and skipping exact duplicates of an already-picked file). */
+            function addFiles(newFiles) {
+
+                clearWarning();
+
+                let addedCount = 0;
+
+                let skippedLimit = 0;
+
+
+                Array.from(newFiles).forEach(function (file) {
+
+                    const alreadyPicked =
+                        selectedFiles.some(function (existing) {
+
+                            return existing.name === file.name &&
+                                existing.size === file.size &&
+                                existing.lastModified === file.lastModified;
+
+                        });
+
+                    if (alreadyPicked) {
+
+                        return;
+
+                    }
+
+
+                    if (isImage(file)) {
+
+                        if (currentPhotoCount() >= MAX_PHOTOS) {
+
+                            skippedLimit++;
+
+                            return;
+
+                        }
+
+                        selectedFiles.push(file);
+
+                        addedCount++;
+
+                    } else if (isVideo(file)) {
+
+                        if (currentVideoCount() >= MAX_VIDEOS) {
+
+                            skippedLimit++;
+
+                            return;
+
+                        }
+
+                        selectedFiles.push(file);
+
+                        addedCount++;
+
+                    }
+
+                });
+
+
+                if (skippedLimit > 0) {
+
+                    showWarning(
+                        '⚠️ ' + skippedLimit +
+                        ' file(s) were not added — limit is ' +
+                        MAX_PHOTOS + ' photos and ' + MAX_VIDEOS +
+                        ' videos.'
+                    );
+
+                }
+
+
+                syncInputFiles();
+
+                renderPreview();
+
+            }
+
+
+            function removeFile(file) {
+
+                selectedFiles = selectedFiles.filter(function (existing) {
+
+                    return existing !== file;
+
+                });
+
+                syncInputFiles();
+
+                renderPreview();
+
+            }
+
+
+            function renderPreview() {
 
                 preview.innerHTML = '';
 
-                const fileArray =
-                    Array.from(files);
+                updateCounts();
 
-                if (!fileArray.length) {
+
+                if (!selectedFiles.length) {
 
                     previewSection.style.display = 'none';
 
@@ -1629,11 +1908,11 @@
                 previewSection.style.display = 'block';
 
                 previewCount.textContent =
-                    fileArray.length +
-                    (fileArray.length === 1 ? ' File' : ' Files');
+                    selectedFiles.length +
+                    (selectedFiles.length === 1 ? ' File' : ' Files');
 
 
-                fileArray.forEach(function (file, index) {
+                selectedFiles.forEach(function (file) {
 
                     const card =
                         document.createElement('div');
@@ -1642,7 +1921,10 @@
                         'pd-preview-card';
 
 
-                    if (file.type.startsWith('image/')) {
+                    const badge =
+                        document.createElement('div');
+
+                    if (isImage(file)) {
 
                         const img =
                             document.createElement('img');
@@ -1651,6 +1933,12 @@
                             URL.createObjectURL(file);
 
                         card.appendChild(img);
+
+
+                        badge.className =
+                            'pd-preview-badge';
+
+                        badge.textContent = 'PHOTO';
 
                     } else {
 
@@ -1669,7 +1957,15 @@
 
                         card.appendChild(video);
 
+
+                        badge.className =
+                            'pd-preview-badge video';
+
+                        badge.textContent = 'VIDEO';
+
                     }
+
+                    card.appendChild(badge);
 
 
                     const overlay =
@@ -1698,7 +1994,7 @@
                     remove.innerHTML = '×';
 
                     remove.title =
-                        'Remove preview';
+                        'Remove';
 
 
                     remove.addEventListener(
@@ -1707,7 +2003,7 @@
 
                             event.preventDefault();
 
-                            card.remove();
+                            removeFile(file);
 
                         }
                     );
@@ -1746,13 +2042,14 @@
             );
 
 
-            /* CHANGE */
+            /* CHANGE — merge new picks into what's already selected
+               instead of letting the browser replace the whole list. */
 
             input.addEventListener(
                 'change',
                 function () {
 
-                    renderPreview(input.files);
+                    addFiles(input.files);
 
                 }
             );
@@ -1784,7 +2081,7 @@
             );
 
 
-            /* DROP */
+            /* DROP — also merged, same as a normal file-dialog pick. */
 
             dropzone.addEventListener(
                 'drop',
@@ -1796,10 +2093,7 @@
 
                     if (event.dataTransfer.files.length) {
 
-                        input.files =
-                            event.dataTransfer.files;
-
-                        renderPreview(input.files);
+                        addFiles(event.dataTransfer.files);
 
                     }
 

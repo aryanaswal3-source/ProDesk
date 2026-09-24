@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\PropertyMediaController;
+use App\Http\Controllers\PublicPropertyController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -53,5 +54,10 @@ Route::middleware('auth')->group(function () {
     )->name('properties.media.destroy');
 });
 
+// Public Property
+Route::get(
+    '/property/{property:slug}',
+    [PublicPropertyController::class, 'show']
+)->name('properties.public');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

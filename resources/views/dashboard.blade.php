@@ -107,6 +107,8 @@
             --pd-purple:#7556c6;
             --pd-orange:#df8a34;
             --pd-red:#d84d42;
+            --pd-pink:#e0578f;
+            --pd-teal:#12a7a1;
         }
 
 
@@ -183,8 +185,8 @@
 
             padding:11px 18px;
 
-            background:var(--pd-green);
-            color:#fff;
+            background:linear-gradient(135deg,var(--pd-gold),#e0b93a);
+            color:#1d1a08;
 
             border-radius:11px;
 
@@ -194,7 +196,7 @@
             font-weight:800;
 
             box-shadow:
-                0 7px 18px rgba(18,55,42,.16);
+                0 7px 18px rgba(201,162,39,.35);
 
             transition:.2s ease;
 
@@ -209,10 +211,11 @@
 
         .pd-add-btn:hover {
 
-            background:var(--pd-green-2);
-            color:#fff;
+            background:linear-gradient(135deg,#e0b93a,var(--pd-gold));
+            color:#1d1a08;
 
-            transform:translateY(-2px);
+            transform:translateY(-2px) scale(1.02);
+            box-shadow:0 10px 24px rgba(201,162,39,.5);
 
         }
 
@@ -221,21 +224,48 @@
            PAGE
         ========================= */
 
-        .pd-page {
-
-            min-height:100%;
+        html,
+        body {
 
             background:
                 radial-gradient(
-                    circle at 5% 4%,
-                    rgba(201,162,39,.07),
-                    transparent 24%
+                    circle at 8% 8%,
+                    rgba(201,162,39,.30),
+                    transparent 32%
                 ),
                 radial-gradient(
-                    circle at 95% 20%,
-                    rgba(18,55,42,.06),
-                    transparent 26%
-                );
+                    circle at 92% 12%,
+                    rgba(71,123,210,.28),
+                    transparent 34%
+                ),
+                radial-gradient(
+                    circle at 15% 92%,
+                    rgba(18,167,161,.26),
+                    transparent 36%
+                ),
+                radial-gradient(
+                    circle at 88% 88%,
+                    rgba(117,86,198,.24),
+                    transparent 36%
+                ),
+                radial-gradient(
+                    circle at 50% 50%,
+                    rgba(18,55,42,.10),
+                    transparent 60%
+                ),
+                linear-gradient(160deg,#eef6f0 0%,#eaf1fb 45%,#fdf3e4 100%) !important;
+
+            background-attachment:fixed;
+
+        }
+
+        .pd-page {
+
+            min-height:100vh;
+
+            background:transparent;
+
+            background-color:transparent !important;
 
         }
 
@@ -264,14 +294,16 @@
 
             background:
                 linear-gradient(
-                    130deg,
+                    120deg,
                     #12372A 0%,
-                    #1b4938 55%,
-                    #285c49 100%
+                    #1d4d3c 30%,
+                    #285c49 55%,
+                    #12a7a1 85%,
+                    #C9A227 130%
                 );
 
             box-shadow:
-                0 18px 45px rgba(18,55,42,.15);
+                0 18px 45px rgba(18,55,42,.3);
 
         }
 
@@ -284,7 +316,7 @@
             width:330px;
             height:330px;
 
-            border:1px solid rgba(255,255,255,.07);
+            border:1px solid rgba(255,255,255,.1);
 
             border-radius:50%;
 
@@ -302,7 +334,7 @@
             width:210px;
             height:210px;
 
-            border:1px solid rgba(201,162,39,.15);
+            border:1px solid rgba(201,162,39,.4);
 
             border-radius:50%;
 
@@ -342,9 +374,9 @@
 
             border-radius:30px;
 
-            background:rgba(255,255,255,.1);
+            background:rgba(255,255,255,.14);
 
-            border:1px solid rgba(255,255,255,.13);
+            border:1px solid rgba(255,255,255,.2);
 
             color:#fff;
 
@@ -367,7 +399,7 @@
             background:#63d897;
 
             box-shadow:
-                0 0 0 4px rgba(99,216,151,.09);
+                0 0 0 4px rgba(99,216,151,.2);
 
         }
 
@@ -386,7 +418,7 @@
 
             margin:0;
 
-            color:rgba(255,255,255,.66);
+            color:rgba(255,255,255,.8);
 
             font-size:12px;
 
@@ -419,15 +451,24 @@
 
             border-radius:9px;
 
-            background:rgba(255,255,255,.07);
+            background:rgba(255,255,255,.12);
 
-            border:1px solid rgba(255,255,255,.08);
+            border:1px solid rgba(255,255,255,.15);
 
             font-size:9.5px;
 
             font-weight:650;
 
-            color:rgba(255,255,255,.78);
+            color:rgba(255,255,255,.9);
+
+            transition:.2s ease;
+
+        }
+
+        .pd-hero-feature:hover {
+
+            background:rgba(255,255,255,.24);
+            transform:translateY(-2px);
 
         }
 
@@ -448,9 +489,9 @@
 
             border-radius:18px;
 
-            background:rgba(255,255,255,.07);
+            background:rgba(255,255,255,.14);
 
-            border:1px solid rgba(255,255,255,.09);
+            border:1px solid rgba(255,255,255,.18);
 
             backdrop-filter:blur(8px);
 
@@ -458,7 +499,7 @@
 
         .pd-hero-side-label {
 
-            color:rgba(255,255,255,.55);
+            color:rgba(255,255,255,.7);
 
             font-size:9px;
 
@@ -482,7 +523,7 @@
 
         .pd-hero-side-text {
 
-            color:rgba(255,255,255,.55);
+            color:rgba(255,255,255,.7);
 
             font-size:10px;
 
@@ -496,28 +537,47 @@
         .pd-stat {
 
             height:100%;
+            position:relative;
+            overflow:hidden;
 
-            background:#fff;
+            color:#fff;
 
-            border:1px solid rgba(18,55,42,.055);
+            border:none;
 
             border-radius:19px;
 
             padding:20px;
 
             box-shadow:
-                0 7px 24px rgba(18,55,42,.045);
+                0 12px 28px rgba(18,55,42,.22);
 
-            transition:.22s ease;
+            transition:.25s ease;
 
+        }
+
+        .pd-stat.stat-total {
+            background:linear-gradient(135deg,#12372A,#2c6a4f);
+        }
+
+        .pd-stat.stat-sale {
+            background:linear-gradient(135deg,#C9A227,#e0b93a);
+            color:#1d1a08;
+        }
+
+        .pd-stat.stat-rent {
+            background:linear-gradient(135deg,#477bd2,#6fa0ee);
+        }
+
+        .pd-stat.stat-available {
+            background:linear-gradient(135deg,#12a7a1,#36cf9a);
         }
 
         .pd-stat:hover {
 
-            transform:translateY(-4px);
+            transform:translateY(-6px) scale(1.015);
 
             box-shadow:
-                0 14px 32px rgba(18,55,42,.09);
+                0 22px 42px rgba(18,55,42,.34);
 
         }
 
@@ -545,19 +605,34 @@
 
             font-size:19px;
 
+            background:rgba(255,255,255,.22);
+
             transition:.25s ease;
+
+        }
+
+        .pd-stat.stat-sale .pd-stat-icon {
+
+            background:rgba(0,0,0,.1);
 
         }
 
         .pd-stat:hover .pd-stat-icon {
 
-            transform:scale(1.08) rotate(-4deg);
+            transform:scale(1.12) rotate(-6deg);
+            background:rgba(255,255,255,.32);
+
+        }
+
+        .pd-stat.stat-sale:hover .pd-stat-icon {
+
+            background:rgba(0,0,0,.16);
 
         }
 
         .pd-stat-label {
 
-            color:#8d948f;
+            color:rgba(255,255,255,.8);
 
             font-size:11px;
             font-weight:650;
@@ -566,9 +641,15 @@
 
         }
 
+        .pd-stat.stat-sale .pd-stat-label {
+
+            color:rgba(29,26,8,.7);
+
+        }
+
         .pd-stat-number {
 
-            color:var(--pd-charcoal);
+            color:#fff;
 
             font-size:27px;
 
@@ -578,13 +659,19 @@
 
         }
 
+        .pd-stat.stat-sale .pd-stat-number {
+
+            color:#1d1a08;
+
+        }
+
         .pd-stat-footer {
 
             margin-top:17px;
 
             padding-top:11px;
 
-            border-top:1px solid #f0f1ee;
+            border-top:1px solid rgba(255,255,255,.22);
 
             display:flex;
 
@@ -594,11 +681,23 @@
 
         }
 
+        .pd-stat.stat-sale .pd-stat-footer {
+
+            border-top:1px solid rgba(0,0,0,.12);
+
+        }
+
         .pd-stat-footer-text {
 
-            color:#9ca29e;
+            color:rgba(255,255,255,.78);
 
             font-size:9.5px;
+
+        }
+
+        .pd-stat.stat-sale .pd-stat-footer-text {
+
+            color:rgba(29,26,8,.65);
 
         }
 
@@ -609,7 +708,7 @@
 
             border-radius:7px;
 
-            background:#f3f5f2;
+            background:rgba(255,255,255,.22);
 
             display:flex;
 
@@ -618,7 +717,22 @@
 
             font-size:11px;
 
-            color:var(--pd-green);
+            color:#fff;
+
+            transition:.2s ease;
+
+        }
+
+        .pd-stat.stat-sale .pd-stat-arrow {
+
+            background:rgba(0,0,0,.1);
+            color:#1d1a08;
+
+        }
+
+        .pd-stat:hover .pd-stat-arrow {
+
+            transform:translateX(3px);
 
         }
 
@@ -629,16 +743,29 @@
 
         .pd-card {
 
-            background:#fff;
+            background:rgba(255,255,255,.86);
 
-            border:1px solid rgba(18,55,42,.055);
+            backdrop-filter:blur(6px);
+
+            border:1px solid rgba(18,55,42,.08);
 
             border-radius:21px;
 
             box-shadow:
-                0 7px 25px rgba(18,55,42,.045);
+                0 10px 30px rgba(18,55,42,.10);
 
             overflow:hidden;
+
+            transition:.25s ease;
+
+        }
+
+        .pd-card:hover {
+
+            box-shadow:
+                0 18px 40px rgba(18,55,42,.16);
+
+            transform:translateY(-2px);
 
         }
 
@@ -651,6 +778,8 @@
             align-items:center;
 
             padding:21px 22px;
+
+            background:linear-gradient(90deg,rgba(201,162,39,.16),rgba(71,123,210,.12));
 
             border-bottom:1px solid #f0f1ee;
 
@@ -691,7 +820,7 @@
         .pd-view-all:hover {
 
             text-decoration:underline;
-            color:var(--pd-green-2);
+            color:var(--pd-gold);
 
         }
 
@@ -721,20 +850,20 @@
 
             overflow:hidden;
 
-            background:#fff;
+            background:linear-gradient(160deg,#ffffff,#f6faf7);
 
-            transition:.22s ease;
+            transition:.25s ease;
 
         }
 
         .pd-property:hover {
 
-            transform:translateY(-3px);
+            transform:translateY(-5px);
 
             box-shadow:
-                0 10px 27px rgba(18,55,42,.09);
+                0 16px 34px rgba(71,123,210,.22);
 
-            border-color:#dbe2dd;
+            border-color:var(--pd-gold);
 
         }
 
@@ -766,7 +895,7 @@
         .pd-property:hover
         .pd-property-image img {
 
-            transform:scale(1.05);
+            transform:scale(1.08);
 
         }
 
@@ -845,7 +974,7 @@
 
             font-weight:850;
 
-            background:var(--pd-green);
+            background:linear-gradient(135deg,var(--pd-green),var(--pd-teal));
 
         }
 
@@ -947,7 +1076,7 @@
 
             border-radius:8px;
 
-            background:#edf5f0;
+            background:linear-gradient(135deg,#edf5f0,#dcefe4);
 
             color:var(--pd-green);
 
@@ -963,9 +1092,9 @@
 
         .pd-property-view:hover {
 
-            background:var(--pd-green);
-
+            background:linear-gradient(135deg,var(--pd-green),var(--pd-teal));
             color:#fff;
+            box-shadow:0 6px 14px rgba(18,55,42,.3);
 
         }
 
@@ -991,7 +1120,7 @@
 
             border-radius:19px;
 
-            background:#eef4f0;
+            background:linear-gradient(135deg,#eef4f0,#fff5d9);
 
             display:flex;
 
@@ -1090,7 +1219,7 @@
 
             height:7px;
 
-            background:#f0f2ef;
+            background:#eef1ee;
 
             border-radius:30px;
 
@@ -1127,10 +1256,30 @@
 
             border-radius:11px;
 
-            background:#f8f9f7;
-
             text-align:center;
 
+            color:#fff;
+
+            transition:.2s ease;
+
+        }
+
+        .pd-mini-stat:hover {
+
+            transform:translateY(-3px);
+
+        }
+
+        .pd-mini-stat.mini-sold {
+            background:linear-gradient(135deg,#d84d42,#e87a70);
+        }
+
+        .pd-mini-stat.mini-rented {
+            background:linear-gradient(135deg,#477bd2,#6fa0ee);
+        }
+
+        .pd-mini-stat.mini-hold {
+            background:linear-gradient(135deg,#df8a34,#f0ad5f);
         }
 
         .pd-mini-number {
@@ -1139,7 +1288,7 @@
 
             font-weight:850;
 
-            color:var(--pd-charcoal);
+            color:#fff;
 
         }
 
@@ -1147,7 +1296,7 @@
 
             font-size:8px;
 
-            color:#9ca29e;
+            color:rgba(255,255,255,.85);
 
             margin-top:2px;
 
@@ -1184,6 +1333,8 @@
 
             margin-bottom:7px;
 
+            border:1px solid transparent;
+
         }
 
         .pd-action:last-child {
@@ -1192,13 +1343,24 @@
 
         }
 
+        .pd-action.action-green {
+            background:linear-gradient(90deg,rgba(18,55,42,.06),transparent);
+        }
+
+        .pd-action.action-gold {
+            background:linear-gradient(90deg,rgba(201,162,39,.1),transparent);
+        }
+
+        .pd-action.action-blue {
+            background:linear-gradient(90deg,rgba(71,123,210,.09),transparent);
+        }
+
         .pd-action:hover {
 
-            background:#f6f8f6;
-
+            border-color:rgba(201,162,39,.35);
             color:var(--pd-charcoal);
-
-            transform:translateX(4px);
+            transform:translateX(5px);
+            box-shadow:0 8px 18px rgba(18,55,42,.1);
 
         }
 
@@ -1217,6 +1379,14 @@
             font-size:15px;
 
             flex-shrink:0;
+
+            transition:.2s ease;
+
+        }
+
+        .pd-action:hover .pd-action-icon {
+
+            transform:scale(1.1) rotate(-5deg);
 
         }
 
@@ -1250,6 +1420,15 @@
 
             font-size:16px;
 
+            transition:.2s ease;
+
+        }
+
+        .pd-action:hover .pd-action-arrow {
+
+            color:var(--pd-gold);
+            transform:translateX(3px);
+
         }
 
 
@@ -1267,14 +1446,18 @@
 
             border-radius:21px;
 
+            color:#fff;
+
             background:
                 linear-gradient(
-                    135deg,
-                    #f7f5ef,
-                    #f2f0e7
+                    115deg,
+                    #12372A,
+                    #12a7a1 45%,
+                    #477bd2 75%,
+                    #C9A227 130%
                 );
 
-            border:1px solid #e9e5d9;
+            border:none;
 
             display:flex;
 
@@ -1295,7 +1478,7 @@
             right:30px;
             top:-17px;
 
-            color:rgba(201,162,39,.16);
+            color:rgba(255,255,255,.18);
 
             font-size:100px;
 
@@ -1310,7 +1493,7 @@
 
         .pd-cta h4 {
 
-            color:var(--pd-green);
+            color:#fff;
 
             font-size:17px;
 
@@ -1322,7 +1505,7 @@
 
         .pd-cta p {
 
-            color:#8d948f;
+            color:rgba(255,255,255,.82);
 
             font-size:10.5px;
 
@@ -1341,9 +1524,9 @@
 
             gap:7px;
 
-            background:var(--pd-green);
+            background:#fff;
 
-            color:#fff;
+            color:var(--pd-green);
 
             text-decoration:none;
 
@@ -1357,13 +1540,17 @@
 
             white-space:nowrap;
 
+            transition:.2s ease;
+
         }
 
         .pd-cta-btn:hover {
 
-            background:var(--pd-green-2);
+            background:var(--pd-gold-light);
 
-            color:#fff;
+            color:var(--pd-green);
+            transform:translateY(-2px);
+            box-shadow:0 10px 22px rgba(0,0,0,.25);
 
         }
 
@@ -1564,7 +1751,7 @@
 
                 <div class="col-6 col-xl-3">
 
-                    <div class="pd-stat">
+                    <div class="pd-stat stat-total">
 
                         <div class="pd-stat-top">
 
@@ -1580,10 +1767,7 @@
 
                             </div>
 
-                            <div
-                                class="pd-stat-icon"
-                                style="background:#eaf4ee;"
-                            >
+                            <div class="pd-stat-icon">
                                 🏠
                             </div>
 
@@ -1611,7 +1795,7 @@
 
                 <div class="col-6 col-xl-3">
 
-                    <div class="pd-stat">
+                    <div class="pd-stat stat-sale">
 
                         <div class="pd-stat-top">
 
@@ -1627,10 +1811,7 @@
 
                             </div>
 
-                            <div
-                                class="pd-stat-icon"
-                                style="background:#fff5d9;"
-                            >
+                            <div class="pd-stat-icon">
                                 🏷️
                             </div>
 
@@ -1658,7 +1839,7 @@
 
                 <div class="col-6 col-xl-3">
 
-                    <div class="pd-stat">
+                    <div class="pd-stat stat-rent">
 
                         <div class="pd-stat-top">
 
@@ -1674,10 +1855,7 @@
 
                             </div>
 
-                            <div
-                                class="pd-stat-icon"
-                                style="background:#edf4ff;"
-                            >
+                            <div class="pd-stat-icon">
                                 🔑
                             </div>
 
@@ -1705,7 +1883,7 @@
 
                 <div class="col-6 col-xl-3">
 
-                    <div class="pd-stat">
+                    <div class="pd-stat stat-available">
 
                         <div class="pd-stat-top">
 
@@ -1721,10 +1899,7 @@
 
                             </div>
 
-                            <div
-                                class="pd-stat-icon"
-                                style="background:#eaf7ef;"
-                            >
+                            <div class="pd-stat-icon">
                                 ✓
                             </div>
 
@@ -2000,7 +2175,7 @@
                                         class="pd-progress-bar"
                                         style="
                                             width:{{ $salePercentage }}%;
-                                            background:#C9A227;
+                                            background:linear-gradient(90deg,#C9A227,#e0b93a);
                                         "
                                     ></div>
 
@@ -2039,7 +2214,7 @@
                                         class="pd-progress-bar"
                                         style="
                                             width:{{ $rentPercentage }}%;
-                                            background:#477bd2;
+                                            background:linear-gradient(90deg,#477bd2,#6fa0ee);
                                         "
                                     ></div>
 
@@ -2058,7 +2233,7 @@
 
                                         <span
                                             class="pd-progress-dot"
-                                            style="background:#36a56b;"
+                                            style="background:#12a7a1;"
                                         ></span>
 
                                         Available
@@ -2078,7 +2253,7 @@
                                         class="pd-progress-bar"
                                         style="
                                             width:{{ $availablePercentage }}%;
-                                            background:#36a56b;
+                                            background:linear-gradient(90deg,#12a7a1,#36cf9a);
                                         "
                                     ></div>
 
@@ -2089,7 +2264,7 @@
 
                             <div class="pd-mini-stats">
 
-                                <div class="pd-mini-stat">
+                                <div class="pd-mini-stat mini-sold">
 
                                     <div class="pd-mini-number">
                                         {{ $sold }}
@@ -2102,7 +2277,7 @@
                                 </div>
 
 
-                                <div class="pd-mini-stat">
+                                <div class="pd-mini-stat mini-rented">
 
                                     <div class="pd-mini-number">
                                         {{ $rented }}
@@ -2115,7 +2290,7 @@
                                 </div>
 
 
-                                <div class="pd-mini-stat">
+                                <div class="pd-mini-stat mini-hold">
 
                                     <div class="pd-mini-number">
                                         {{ $onHold }}
@@ -2164,12 +2339,12 @@
 
                             <a
                                 href="{{ route('properties.create') }}"
-                                class="pd-action"
+                                class="pd-action action-green"
                             >
 
                                 <div
                                     class="pd-action-icon"
-                                    style="background:#eaf4ee;"
+                                    style="background:linear-gradient(135deg,#eaf4ee,#c8ecd8);"
                                 >
                                     ➕
                                 </div>
@@ -2195,12 +2370,12 @@
 
                             <a
                                 href="{{ route('properties.index') }}"
-                                class="pd-action"
+                                class="pd-action action-gold"
                             >
 
                                 <div
                                     class="pd-action-icon"
-                                    style="background:#fff5d9;"
+                                    style="background:linear-gradient(135deg,#fff5d9,#fbe6a3);"
                                 >
                                     🏘️
                                 </div>
@@ -2226,12 +2401,12 @@
 
                             <a
                                 href="{{ route('profile.edit') }}"
-                                class="pd-action"
+                                class="pd-action action-blue"
                             >
 
                                 <div
                                     class="pd-action-icon"
-                                    style="background:#edf4ff;"
+                                    style="background:linear-gradient(135deg,#edf4ff,#c3d9fb);"
                                 >
                                     👤
                                 </div>
@@ -2247,6 +2422,8 @@
                                     </div>
 
                                 </div>
+
+                                
 
                                 <div class="pd-action-arrow">
                                     ›

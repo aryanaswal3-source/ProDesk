@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Property;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class PropertyController extends Controller
 {
@@ -47,7 +48,12 @@ class PropertyController extends Controller
             'status' => 'required|in:available,hold,sold,rented',
         ]);
 
+        // Logged-in dealer
         $validated['user_id'] = auth()->id();
+
+        // Generate unique public slug
+        $validated['slug'] = Str::slug($validated['title'])
+            . '-' . Str::lower(Str::random(6));
 
         Property::create($validated);
 
@@ -97,6 +103,13 @@ class PropertyController extends Controller
             'description' => 'nullable|string',
             'status' => 'required|in:available,hold,sold,rented',
         ]);
+
+        // Update slug if property title changes
+        if ($property->title !== $validated['title']) {
+
+            $validated['slug'] = Str::slug($validated['title'])
+                . '-' . Str::lower(Str::random(6));
+        }
 
         $property->update($validated);
 
